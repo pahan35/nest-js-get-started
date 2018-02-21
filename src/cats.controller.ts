@@ -1,9 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
+    @Post()
+    create() {
+        // TODO: Add some logic here
+    }
+    
     @Get()
-    findAll() {
+    findAll(@Req() request) {
         return [];
     }
 }
