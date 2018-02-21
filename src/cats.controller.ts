@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param, Post, Req } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
@@ -7,9 +7,9 @@ export class CatsController {
     create() {
         // TODO: Add some logic here
     }
-    
+
     @Get()
-    findAll(@Req() request) {
+    async findAll(): Promise<any[]> {
         return [];
     }
 
