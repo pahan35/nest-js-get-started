@@ -2,6 +2,7 @@ import { Controller, Get, Param, Post, Res, Body, HttpCode } from '@nestjs/commo
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { ValidationPipe } from '../validation.pipe';
 
 @Controller('cats')
 export class CatsController {
@@ -9,7 +10,7 @@ export class CatsController {
 
     @HttpCode(204)
     @Post()
-    async create(@Body() createCatDto: CreateCatDto) {
+    async create(@Body(new ValidationPipe()) createCatDto: CreateCatDto) {
          this.catsService.create(createCatDto);
     }
 
