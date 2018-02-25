@@ -2,6 +2,7 @@ import { Controller, Get, Param, Post, Body, HttpCode } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { ParseIntPipe } from '../parse-int.pipe';
 
 @Controller('cats')
 export class CatsController {
@@ -19,7 +20,7 @@ export class CatsController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') param): Promise<Cat> {
+    async findOne(@Param('id', new ParseIntPipe()) param): Promise<Cat> {
         return this.catsService.findOne(param);
     }
 }
