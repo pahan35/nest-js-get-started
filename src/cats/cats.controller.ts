@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, HttpCode, ReflectMetadata } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -9,6 +9,7 @@ export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
     @HttpCode(204)
+    @ReflectMetadata('roles', ['admin'])
     @Post()
     async create(@Body() createCatDto: CreateCatDto) {
          this.catsService.create(createCatDto);
