@@ -1,14 +1,24 @@
-import {Controller, Get, Param, Post, Body, HttpCode, ReflectMetadata, UseGuards} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Param,
+    Post,
+    Body,
+    HttpCode,
+    ReflectMetadata,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ParseIntPipe } from '../parse-int.pipe';
-import {RolesGuard} from "../roles.guard";
 import {Roles} from "../roles.decorator";
+import {LoggingInterceptor} from "../logging.interceptor";
 
 @Controller('cats')
 @Roles('admin')
-@UseGuards(RolesGuard)
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
