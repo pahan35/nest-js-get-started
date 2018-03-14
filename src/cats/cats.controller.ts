@@ -7,12 +7,12 @@ import {RolesGuard} from "../roles.guard";
 import {Roles} from "../roles.decorator";
 
 @Controller('cats')
+@Roles('admin')
 @UseGuards(RolesGuard)
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
     @HttpCode(204)
-    @Roles('admin')
     @Post()
     async create(@Body() createCatDto: CreateCatDto) {
          this.catsService.create(createCatDto);
