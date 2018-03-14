@@ -5,20 +5,15 @@ import {
     Post,
     Body,
     HttpCode,
-    ReflectMetadata,
-    UseGuards,
-    UseInterceptors
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ParseIntPipe } from '../parse-int.pipe';
 import {Roles} from "../roles.decorator";
-import {LoggingInterceptor} from "../logging.interceptor";
 
 @Controller('cats')
 @Roles('admin')
-@UseInterceptors(LoggingInterceptor)
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
