@@ -12,17 +12,18 @@ import { Cat } from './interfaces/cat.interface';
 import { ParseIntPipe } from '../parse-int.pipe';
 import {Roles} from "../roles.decorator";
 import {TransformInterceptor} from "../transform.interceptor";
+import {ExceptionInterceptor} from "../exception.interceptor";
 
 @Controller('cats')
 @Roles('admin')
-@UseInterceptors(TransformInterceptor)
+@UseInterceptors(TransformInterceptor, ExceptionInterceptor)
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
     @HttpCode(204)
     @Post()
     async create(@Body() createCatDto: CreateCatDto) {
-         this.catsService.create(createCatDto);
+        this.catsService.create(createCatDto);
     }
 
     @Get()
