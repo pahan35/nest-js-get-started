@@ -13,6 +13,7 @@ import { ParseIntPipe } from '../parse-int.pipe';
 import {Roles} from "../roles.decorator";
 import {TransformInterceptor} from "../transform.interceptor";
 import {ExceptionInterceptor} from "../exception.interceptor";
+import {CacheInterceptor} from "../cache.interceptor";
 
 @Controller('cats')
 @Roles('admin')
@@ -27,6 +28,7 @@ export class CatsController {
     }
 
     @Get()
+    @UseInterceptors(CacheInterceptor)
     async findAll(): Promise<Cat[]> {
         return this.catsService.findAll();
     }
