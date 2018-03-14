@@ -4,16 +4,18 @@ import {
     Param,
     Post,
     Body,
-    HttpCode,
+    HttpCode, UseInterceptors,
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ParseIntPipe } from '../parse-int.pipe';
 import {Roles} from "../roles.decorator";
+import {TransformInterceptor} from "../transform.interceptor";
 
 @Controller('cats')
 @Roles('admin')
+@UseInterceptors(TransformInterceptor)
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
