@@ -14,7 +14,7 @@ export class ValidationPipe implements PipeTransform<any> {
         if (errors.length > 0) {
             throw new BadRequestException('Validation failed');
         }
-        return value;
+        return object;
     }
 
     private toValidate(metatype): boolean {
