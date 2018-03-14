@@ -6,7 +6,7 @@ import { RolesGuard } from './roles.guard';
 async function bootstrap() {
 	const app = await NestFactory.create(ApplicationModule);
     app.useGlobalPipes(new ValidationPipe());
-    app.app.useGlobalGuards(new RolesGuard());
+    app.useGlobalGuards(new RolesGuard());
 	await app.listen(3000);
 }
 
