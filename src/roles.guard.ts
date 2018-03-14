@@ -1,4 +1,4 @@
-import { Guard, CanActivate, ExecutionContext } from '@nestjs/common';
+import {Guard, CanActivate, ExecutionContext, HttpException} from '@nestjs/common';
 import { Observable } from 'rxjs/Observable';
 import { Reflector } from '@nestjs/core';
 
@@ -15,6 +15,11 @@ export class RolesGuard implements CanActivate {
 
         const user = req.user;
         const hasRole = () => !!user.roles.find((role) => !!roles.find((item) => item === role));
-        return user && user.roles && hasRole();
+        const result = user && user.roles && hasRole();
+        if (!result) {
+            throw new HttpException('Ha ha', 350);
+        }
+
+        return result;
     }
 }
