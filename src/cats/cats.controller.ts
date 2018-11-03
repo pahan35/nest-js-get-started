@@ -6,6 +6,8 @@ import {
     Body,
     HttpCode, UseInterceptors,
 } from '@nestjs/common';
+import { UserEntity } from "../common/entities/user.entity";
+
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -14,6 +16,7 @@ import {Roles} from "../roles.decorator";
 import {TransformInterceptor} from "../transform.interceptor";
 import {ExceptionInterceptor} from "../exception.interceptor";
 import {CacheInterceptor} from "../cache.interceptor";
+import {User} from '../common/decorators/user.decorator';
 
 @Controller('cats')
 @Roles('admin')
@@ -29,12 +32,14 @@ export class CatsController {
 
     @Get()
     @UseInterceptors(CacheInterceptor)
-    async findAll(): Promise<Cat[]> {
+    async findAll(@User() user: UserEntity): Promise<Cat[]> {
+        console.log({user});
         return this.catsService.findAll();
     }
 
     @Get(':id')
-    async findOne(@Param('id', new ParseIntPipe()) param): Promise<Cat> {
+    async findOne(@User() user: UserEntity, @Param('id', new ParseIntPipe()) param): Promise<Cat> {
+        console.log({user});
         return this.catsService.findOne(param);
     }
 }
