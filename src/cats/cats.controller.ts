@@ -17,6 +17,7 @@ import {TransformInterceptor} from "../transform.interceptor";
 import {ExceptionInterceptor} from "../exception.interceptor";
 import {CacheInterceptor} from "../cache.interceptor";
 import {User} from '../common/decorators/user.decorator';
+import {ValidationPipe} from "../validation.pipe";
 
 @Controller('cats')
 @Roles('admin')
@@ -38,7 +39,7 @@ export class CatsController {
     }
 
     @Get(':id')
-    async findOne(@User() user: UserEntity, @Param('id', new ParseIntPipe()) param): Promise<Cat> {
+    async findOne(@User(new ValidationPipe()) user: UserEntity, @Param('id', new ParseIntPipe()) param): Promise<Cat> {
         console.log({user});
         return this.catsService.findOne(param);
     }

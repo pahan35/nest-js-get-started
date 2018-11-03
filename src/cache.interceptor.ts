@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 @Interceptor()
 export class CacheInterceptor implements NestInterceptor {
     intercept(dataOrRequest, context: ExecutionContext, stream$: Observable<any>): Observable<any> {
-        const isCached = true;
+        const isCached = false;
         if (isCached) {
             return Observable.of([]);
         }
